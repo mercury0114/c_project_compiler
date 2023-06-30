@@ -1,6 +1,7 @@
 import unittest
 
-from lines_selector import collect_user_includes
+from headers_collector import collect_user_includes
+from headers_collector import get_headers_paths
 
 
 class CollectUserIncludes(unittest.TestCase):
@@ -22,10 +23,22 @@ class CollectUserIncludes(unittest.TestCase):
 
     def test_inputHasMultipleLines_collectsOnlyUserIncludes(self):
         system_include = "#include <stdio.h>"
-        user_include = "#include \"path/to/my_header.h\""
+        user_include = "#include \"path/to/header.h\""
         non_include = "int main() { return 0; }"
         self.assertEquals(collect_user_includes([system_include, user_include, non_include]),
                           [user_include])
+
+
+class GetHeadersPaths(unittest.TestCase):
+    def test_emptyInput_returnsEmptyList(self):
+        self.assertFalse(get_headers_paths([]))
+
+    def test_inputHasUserInclude_returnsHeaderPath(self):
+        self.assertEquals(get_headers_paths(["#include \"path/to/header.h\""]),
+                          ["path/to/header.h"])
+
+    def test_inputHasTwoIdenticalIncludes_throwsException(self):
+        return
 
 
 unittest.main()
