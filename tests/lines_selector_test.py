@@ -16,5 +16,16 @@ class CollectIncludeLines(unittest.TestCase):
         self.assertEquals(collect_include_lines(
             [system_header]), [system_header])
 
+    def test_inputHasUserHeader_returnsUserHeader(self):
+        user_header = "#include \"path/to/my/header.h\""
+        self.assertEquals(collect_include_lines([user_header]), [user_header])
+
+    def test_inputHasMultipleLines_collectsOnlyHeaders(self):
+        system_header = "#include <stdio.h>"
+        user_header = "#include \"path/to/my_header.h\""
+        non_header = "int main() { return 0; }"
+        self.assertEquals(collect_include_lines([system_header, user_header, non_header]),
+                          [system_header, user_header])
+
 
 unittest.main()
