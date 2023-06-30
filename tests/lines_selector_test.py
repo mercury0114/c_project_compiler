@@ -1,31 +1,31 @@
 import unittest
 
-from lines_selector import collect_include_lines
+from lines_selector import collect_user_includes
 
 
-class CollectIncludeLines(unittest.TestCase):
-    def test_emptyInput_returnsEmptyOutput(self):
-        self.assertFalse(collect_include_lines([]))
+class CollectUserIncludes(unittest.TestCase):
+    def test_emptyInput_returnsEmptyList(self):
+        self.assertFalse(collect_user_includes([]))
 
-    def test_inputWithoutIncludeLines_returnsEmptyOutput(self):
+    def test_inputWithoutIncludeLines_returnsEmptyList(self):
         c_code_line = "int main() { return 0; }"
-        self.assertFalse(collect_include_lines([c_code_line]))
+        self.assertFalse(collect_user_includes([c_code_line]))
 
-    def test_inputHasSystemHeader_returnsSystemHeader(self):
-        system_header = "#include <stdio.h>"
-        self.assertEquals(collect_include_lines(
-            [system_header]), [system_header])
+    def test_inputHasOnlySystemInclude_returnsEmptyList(self):
+        system_include = "#include <stdio.h>"
+        self.assertFalse(collect_user_includes([system_include]))
 
-    def test_inputHasUserHeader_returnsUserHeader(self):
-        user_header = "#include \"path/to/my/header.h\""
-        self.assertEquals(collect_include_lines([user_header]), [user_header])
+    def test_inputHasUserInclude_returnsUserInclude(self):
+        user_include = "#include \"path/to/my/header.h\""
+        self.assertEquals(collect_user_includes(
+            [user_include]), [user_include])
 
-    def test_inputHasMultipleLines_collectsOnlyHeaders(self):
-        system_header = "#include <stdio.h>"
-        user_header = "#include \"path/to/my_header.h\""
-        non_header = "int main() { return 0; }"
-        self.assertEquals(collect_include_lines([system_header, user_header, non_header]),
-                          [system_header, user_header])
+    def test_inputHasMultipleLines_collectsOnlyUserIncludes(self):
+        system_include = "#include <stdio.h>"
+        user_include = "#include \"path/to/my_header.h\""
+        non_include = "int main() { return 0; }"
+        self.assertEquals(collect_user_includes([system_include, user_include, non_include]),
+                          [user_include])
 
 
 unittest.main()
