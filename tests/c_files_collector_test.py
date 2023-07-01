@@ -20,5 +20,9 @@ class GetCFilesToCompile(unittest.TestCase):
         self.assertEqual(get_c_files_to_compile(
             "tests/data/project2/main.c"), ["library1.c", "library2.c"])
 
+    def test_cProgramDependsOnTwoHeadersAndOneCFile_returnsCFilePath(self):
+        self.assertEqual(get_c_files_to_compile(
+            "tests/data/project3/main.c"), ["function.c"])
+
 
 unittest.main()
