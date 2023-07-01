@@ -38,9 +38,9 @@ class CollectUserIncludes(unittest.TestCase):
 class ExtractHeaderPath(unittest.TestCase):
     def test_extractsExpectedSimplePath(self):
         self.assertEqual(extract_header_path('#include "library/header1.h"'),
-                         "library/header1.h")
+                         'library/header1.h')
         self.assertEqual(extract_header_path('#include "library/header2.h"'),
-                         "library/header2.h")
+                         'library/header2.h')
 
     def test_extractsFullPath(self):
         self.assertEqual(extract_header_path('#include "path/to/header.h"'),
@@ -48,7 +48,13 @@ class ExtractHeaderPath(unittest.TestCase):
 
     def test_extractsPathFromUserIncludeContainingComment(self):
         self.assertEqual(extract_header_path(
-            '#include "library/header.h" // comment'), "library/header.h")
+            '#include "library/header.h" // comment'), 'library/header.h')
+
+    def test_headerPathInRootDirectory_throwsException(self):
+        self.assertRaisesRegex(ValueError, 'header.h not allowed in project root dir.*',
+                               extract_header_path, '#include "header.h"')
+        self.assertEqual(extract_header_path(
+            '#include "subdirectory/header.h"'), 'subdirectory/header.h')
 
 
 class GetUserHeadersPaths(unittest.TestCase):

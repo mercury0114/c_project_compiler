@@ -1,3 +1,4 @@
+from re import search
 from re import findall
 
 
@@ -6,7 +7,11 @@ def collect_user_includes(file_lines):
 
 
 def extract_header_path(user_include):
-    return findall('#include "(.*)"', user_include)[0]
+    header_path = findall('#include "(.*)"', user_include)[0]
+    if not '/' in header_path:
+        raise (ValueError(
+            f'{header_path} not allowed in project root dir. Move it to some subdirectory, e.g.: library/{header_path}'))
+    return header_path
 
 
 def get_user_headers_paths(c_file_path):
