@@ -46,6 +46,10 @@ class GetUserHeadersPaths(unittest.TestCase):
         self.assertFalse(get_user_headers_paths(
             "tests/data/project0/program_without_user_dependencies.c"), [])
 
+    def test_programWithOneUserHeader_returnsHeader(self):
+        self.assertEqual(get_user_headers_paths(
+            "tests/data/project1/main.c"), ["library.h"])
+
 
 class ReadLinesFrom(unittest.TestCase):
     def test_oneLineFile_returnsLineWithoutEolSymbol(self):

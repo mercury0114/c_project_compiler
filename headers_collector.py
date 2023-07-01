@@ -7,7 +7,8 @@ def extract_header_path(user_include):
 
 
 def get_user_headers_paths(c_file_path):
-    return []
+    includes = collect_user_includes(read_lines_from(c_file_path))
+    return [extract_header_path(include) for include in includes]
 
 
 def read_lines_from(file_path):
