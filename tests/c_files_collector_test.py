@@ -8,5 +8,9 @@ class GetCFilesToCompile(unittest.TestCase):
         self.assertFalse(get_c_files_to_compile(
             "data/program_without_dependencies.c"))
 
+    def test_cProgramHasNoUserDependencies_returnsEmptyList(self):
+        self.assertFalse(get_c_files_to_compile(
+            "data/program_without_user_dependencies.c"))
+
 
 unittest.main()
