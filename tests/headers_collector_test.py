@@ -1,8 +1,9 @@
 import unittest
 
 from headers_collector import collect_user_includes
-from headers_collector import extract_headers_paths
+from headers_collector import extract_header_path
 from headers_collector import read_lines_from
+from headers_collector import get_user_headers_paths
 
 
 class CollectUserIncludes(unittest.TestCase):
@@ -30,16 +31,18 @@ class CollectUserIncludes(unittest.TestCase):
                          [user_include])
 
 
-class GetHeadersPaths(unittest.TestCase):
-    def test_emptyInput_returnsEmptyList(self):
-        self.assertFalse(extract_headers_paths([]))
+class ExtractHeaderPath(unittest.TestCase):
+    def test_extractsExpectedPath(self):
+        self.assertEqual(extract_header_path('#include "header1.h"'),
+                         "header1.h")
+        self.assertEqual(extract_header_path('#include "header2.h"'),
+                         "header2.h")
 
-    def test_inputHasUserInclude_returnsHeaderPath(self):
-        self.assertEqual(extract_headers_paths(["#include \"path/to/header.h\""]),
-                         ["path/to/header.h"])
 
-    def test_inputHasTwoIdenticalIncludes_throwsException(self):
-        return
+class GetUserHeadersPaths(unittest.TestCase):
+    def test_programWithoutUserHeaders_returnsEmptyList(self):
+        self.assertFalse(get_user_headers_paths(""),
+                         [])
 
 
 class ReadLinesFrom(unittest.TestCase):

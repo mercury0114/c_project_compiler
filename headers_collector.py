@@ -2,8 +2,12 @@ def collect_user_includes(file_lines):
     return [line for line in file_lines if line.startswith("#include \"")]
 
 
-def extract_headers_paths(user_includes):
-    return [include[10:-1] for include in user_includes]
+def extract_header_path(user_include):
+    return user_include[10:-1]
+
+
+def get_user_headers_paths(c_file_path):
+    return []
 
 
 def read_lines_from(file_path):
