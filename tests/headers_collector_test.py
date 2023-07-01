@@ -31,16 +31,16 @@ class CollectUserIncludes(unittest.TestCase):
                          [user_include])
 
     def test_inputHasUserIncludeWithComments_returnsUserIncludeLine(self):
-        user_include = '#include "header.h" // some comment'
+        user_include = '#include "library/header.h" // some comment'
         self.assertEqual(collect_user_includes([user_include]), [user_include])
 
 
 class ExtractHeaderPath(unittest.TestCase):
     def test_extractsExpectedSimplePath(self):
-        self.assertEqual(extract_header_path('#include "header1.h"'),
-                         "header1.h")
-        self.assertEqual(extract_header_path('#include "header2.h"'),
-                         "header2.h")
+        self.assertEqual(extract_header_path('#include "library/header1.h"'),
+                         "library/header1.h")
+        self.assertEqual(extract_header_path('#include "library/header2.h"'),
+                         "library/header2.h")
 
     def test_extractsFullPath(self):
         self.assertEqual(extract_header_path('#include "path/to/header.h"'),
@@ -48,7 +48,7 @@ class ExtractHeaderPath(unittest.TestCase):
 
     def test_extractsPathFromUserIncludeContainingComment(self):
         self.assertEqual(extract_header_path(
-            '#include "header.h" // comment'), "header.h")
+            '#include "library/header.h" // comment'), "library/header.h")
 
 
 class GetUserHeadersPaths(unittest.TestCase):
@@ -60,7 +60,7 @@ class GetUserHeadersPaths(unittest.TestCase):
 
     def test_programWithOneUserHeader_returnsHeader(self):
         self.assertEqual(get_user_headers_paths(
-            "tests/data/project1/main.c"), ["library.h"])
+            "tests/data/project1/main.c"), ["library/function.h"])
 
 
 class ReadLinesFrom(unittest.TestCase):

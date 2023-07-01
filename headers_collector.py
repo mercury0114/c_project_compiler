@@ -2,7 +2,7 @@ from re import findall
 
 
 def collect_user_includes(file_lines):
-    return [line for line in file_lines if line.startswith("#include \"")]
+    return [line for line in file_lines if line.startswith('#include "')]
 
 
 def extract_header_path(user_include):

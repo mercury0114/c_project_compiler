@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "function.h"
-#include "structure.h"
+#include "library/function.h"
+#include "library/structure.h"
 
 int function(void) {
   Structure structure;

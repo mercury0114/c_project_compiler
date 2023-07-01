@@ -1,5 +1,5 @@
 #pragma once
 
-#include "structure.h"
+#include "library/structure.h"
 
 Structure function(void);

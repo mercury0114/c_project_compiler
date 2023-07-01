@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "function.h"
+#include "library/function.h"
 
 int main() {
   printf("Function returned number=%d\n", function());

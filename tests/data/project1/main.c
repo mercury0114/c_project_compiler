@@ -1,4 +1,4 @@
-#include "library.h"
+#include "library/function.h"
 
 int main() {
   empty_function();
