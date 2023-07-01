@@ -33,4 +33,5 @@ class GetCPathsToCompile(unittest.TestCase):
                          ['dir/function.c', 'dir/subdir/function.c', 'dir2/function.c'])
 
 
-unittest.main()
+if __name__ == '__main__':
+    unittest.main()
