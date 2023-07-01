@@ -1,3 +1,3 @@
 #pragma once
 
-void library_function(void);
+void library2_function(void);

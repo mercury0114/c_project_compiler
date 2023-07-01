@@ -18,7 +18,7 @@ class GetCFilesToCompile(unittest.TestCase):
 
     def test_cProgramHasTwoUserDependencies_returnsTwoPaths(self):
         self.assertEqual(get_c_files_to_compile(
-            "tests/data/project2/main.c"), ["library.c", "library2.c"])
+            "tests/data/project2/main.c"), ["library1.c", "library2.c"])
 
 
 unittest.main()
