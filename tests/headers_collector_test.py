@@ -18,15 +18,15 @@ class CollectUserIncludes(unittest.TestCase):
 
     def test_inputHasUserInclude_returnsUserInclude(self):
         user_include = "#include \"path/to/my/header.h\""
-        self.assertEquals(collect_user_includes(
+        self.assertEqual(collect_user_includes(
             [user_include]), [user_include])
 
     def test_inputHasMultipleLines_collectsOnlyUserIncludes(self):
         system_include = "#include <stdio.h>"
         user_include = "#include \"path/to/header.h\""
         non_include = "int main() { return 0; }"
-        self.assertEquals(collect_user_includes([system_include, user_include, non_include]),
-                          [user_include])
+        self.assertEqual(collect_user_includes([system_include, user_include, non_include]),
+                         [user_include])
 
 
 class GetHeadersPaths(unittest.TestCase):
@@ -34,8 +34,8 @@ class GetHeadersPaths(unittest.TestCase):
         self.assertFalse(extract_headers_paths([]))
 
     def test_inputHasUserInclude_returnsHeaderPath(self):
-        self.assertEquals(extract_headers_paths(["#include \"path/to/header.h\""]),
-                          ["path/to/header.h"])
+        self.assertEqual(extract_headers_paths(["#include \"path/to/header.h\""]),
+                         ["path/to/header.h"])
 
     def test_inputHasTwoIdenticalIncludes_throwsException(self):
         return
