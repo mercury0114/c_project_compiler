@@ -3,7 +3,7 @@ from headers_collector import get_user_headers_paths
 from os.path import exists, join
 
 
-class CFilesCollector:
+class CPathsCollector:
     def __init__(self, project_dir):
         self.project_dir = project_dir
         self.checked_h_paths = set()
@@ -17,13 +17,13 @@ class CFilesCollector:
         return list(filter(lambda c: c not in self.collected_c_paths and
                            exists(join(self.project_dir, c)), c_paths))
 
-    def collect(self, c_path):
+    def run_recursively(self, c_path):
         unchecked_c_paths = self.get_more_c_paths(c_path)
         any(map(self.collected_c_paths.add, unchecked_c_paths))
-        any(map(self.collect, unchecked_c_paths))
+        any(map(self.run_recursively, unchecked_c_paths))
 
 
-def get_c_files_to_compile(project_dir, c_program_path):
-    collector = CFilesCollector(project_dir)
-    collector.collect(c_program_path)
+def get_c_paths_to_compile(project_dir, c_program_path):
+    collector = CPathsCollector(project_dir)
+    collector.run_recursively(c_program_path)
     return sorted(list(collector.collected_c_paths))
