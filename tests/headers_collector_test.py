@@ -2,6 +2,7 @@ import unittest
 
 from headers_collector import collect_user_includes
 from headers_collector import extract_headers_paths
+from headers_collector import read_lines_from
 
 
 class CollectUserIncludes(unittest.TestCase):
@@ -39,6 +40,12 @@ class GetHeadersPaths(unittest.TestCase):
 
     def test_inputHasTwoIdenticalIncludes_throwsException(self):
         return
+
+
+class ReadLinesFrom(unittest.TestCase):
+    def test_oneLineFile_returnsLineWithoutEolSymbol(self):
+        self.assertEqual(read_lines_from("tests/data/one_line_file.c"),
+                         ["int main() { return 0; }"])
 
 
 unittest.main()
