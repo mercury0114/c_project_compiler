@@ -47,5 +47,9 @@ class ReadLinesFrom(unittest.TestCase):
         self.assertEqual(read_lines_from("tests/data/one_line_file.c"),
                          ["int main() { return 0; }"])
 
+    def test_twoLinesFile_returnsTwoLines(self):
+        self.assertEqual(read_lines_from("tests/data/two_lines_file.c"),
+                         ["#include <stdio.h>", "#include <stdlib.h>"])
+
 
 unittest.main()
