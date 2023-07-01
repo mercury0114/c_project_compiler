@@ -1,4 +1,4 @@
-from functools import reduce
+from sys import argv
 from headers_collector import get_user_headers_paths
 from os.path import exists, join
 
@@ -27,3 +27,18 @@ def get_c_paths_to_compile(project_dir, c_program_path):
     collector = CPathsCollector(project_dir)
     collector.run_recursively(c_program_path)
     return sorted(list(collector.collected_c_paths))
+
+
+def main():
+    if len(argv) != 3:
+        print("Usage:")
+        print("python3 c_paths_collector.py project_dir relative/path/to/c")
+        exit(1)
+    project_dir = argv[1]
+    c_program_path = argv[2]
+    c_paths = get_c_paths_to_compile(project_dir, c_program_path)
+    print(' '.join(c_paths))
+
+
+if __name__ == '__main__':
+    main()
