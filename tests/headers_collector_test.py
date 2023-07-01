@@ -41,8 +41,10 @@ class ExtractHeaderPath(unittest.TestCase):
 
 class GetUserHeadersPaths(unittest.TestCase):
     def test_programWithoutUserHeaders_returnsEmptyList(self):
-        self.assertFalse(get_user_headers_paths(""),
+        self.assertFalse(get_user_headers_paths("tests/data/project0/program_without_dependencies.c"),
                          [])
+        self.assertFalse(get_user_headers_paths(
+            "tests/data/project0/program_without_user_dependencies.c"), [])
 
 
 class ReadLinesFrom(unittest.TestCase):
