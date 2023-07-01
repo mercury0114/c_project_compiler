@@ -1,9 +1,10 @@
 set -e
-c_files=$(python3 -B c_paths_collector.py $1 $2)
-cd $1
-command="gcc -o /tmp/binary -I./ $2 $c_files"
-echo "Compiling with command:"
-echo "$command"
-$command
-chmod +x /tmp/binary
-/tmp/binary
+project_root_dir=$1
+relative_c_program_path=$2
+
+c_paths=$(python3 -B c_paths_collector.py $project_root_dir $relative_c_program_path)
+cd $project_root_dir
+set -x
+gcc -o /tmp/binary -I./ $relative_c_program_path $c_paths
+
+chmod +x /tmp/binary | /tmp/binary
