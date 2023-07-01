@@ -1,7 +1,7 @@
 import unittest
 
 from headers_collector import collect_user_includes
-from headers_collector import get_headers_paths
+from headers_collector import extract_headers_paths
 
 
 class CollectUserIncludes(unittest.TestCase):
@@ -31,10 +31,10 @@ class CollectUserIncludes(unittest.TestCase):
 
 class GetHeadersPaths(unittest.TestCase):
     def test_emptyInput_returnsEmptyList(self):
-        self.assertFalse(get_headers_paths([]))
+        self.assertFalse(extract_headers_paths([]))
 
     def test_inputHasUserInclude_returnsHeaderPath(self):
-        self.assertEquals(get_headers_paths(["#include \"path/to/header.h\""]),
+        self.assertEquals(extract_headers_paths(["#include \"path/to/header.h\""]),
                           ["path/to/header.h"])
 
     def test_inputHasTwoIdenticalIncludes_throwsException(self):
