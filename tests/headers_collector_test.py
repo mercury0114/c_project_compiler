@@ -19,16 +19,20 @@ class CollectUserIncludes(unittest.TestCase):
         self.assertFalse(collect_user_includes([system_include]))
 
     def test_inputHasUserInclude_returnsUserInclude(self):
-        user_include = "#include \"path/to/my/header.h\""
+        user_include = '#include "path/to/my/header.h"'
         self.assertEqual(collect_user_includes(
             [user_include]), [user_include])
 
     def test_inputHasMultipleLines_collectsOnlyUserIncludes(self):
         system_include = "#include <stdio.h>"
-        user_include = "#include \"path/to/header.h\""
+        user_include = '#include "path/to/header.h"'
         non_include = "int main() { return 0; }"
         self.assertEqual(collect_user_includes([system_include, user_include, non_include]),
                          [user_include])
+
+    def test_inputHasUserIncludeWithComments_returnsUserIncludeLine(self):
+        user_include = '#include "header.h" // some comment'
+        self.assertEqual(collect_user_includes([user_include]), [user_include])
 
 
 class ExtractHeaderPath(unittest.TestCase):
@@ -41,6 +45,10 @@ class ExtractHeaderPath(unittest.TestCase):
     def test_extractsFullPath(self):
         self.assertEqual(extract_header_path('#include "path/to/header.h"'),
                          "path/to/header.h")
+
+    def test_extractsPathFromUserIncludeContainingComment(self):
+        self.assertEqual(extract_header_path(
+            '#include "header.h" // comment'), "header.h")
 
 
 class GetUserHeadersPaths(unittest.TestCase):

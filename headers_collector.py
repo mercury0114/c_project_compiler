@@ -1,9 +1,12 @@
+from re import findall
+
+
 def collect_user_includes(file_lines):
     return [line for line in file_lines if line.startswith("#include \"")]
 
 
 def extract_header_path(user_include):
-    return user_include[10:-1]
+    return findall('#include "(.*)"', user_include)[0]
 
 
 def get_user_headers_paths(c_file_path):
