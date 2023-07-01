@@ -12,5 +12,9 @@ class GetCFilesToCompile(unittest.TestCase):
         self.assertFalse(get_c_files_to_compile(
             "tests/data/project0/program_without_user_dependencies.c"))
 
+    def test_cProgramHasOneUserDependency_returnsCDepenencyPath(self):
+        self.assertEqual(get_c_files_to_compile(
+            "tests/data/project1/main.c"), ["library.c"])
+
 
 unittest.main()

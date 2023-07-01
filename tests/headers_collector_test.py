@@ -32,11 +32,15 @@ class CollectUserIncludes(unittest.TestCase):
 
 
 class ExtractHeaderPath(unittest.TestCase):
-    def test_extractsExpectedPath(self):
+    def test_extractsExpectedSimplePath(self):
         self.assertEqual(extract_header_path('#include "header1.h"'),
                          "header1.h")
         self.assertEqual(extract_header_path('#include "header2.h"'),
                          "header2.h")
+
+    def test_extractsFullPath(self):
+        self.assertEqual(extract_header_path('#include "path/to/header.h"'),
+                         "path/to/header.h")
 
 
 class GetUserHeadersPaths(unittest.TestCase):
