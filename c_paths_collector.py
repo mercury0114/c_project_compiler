@@ -1,7 +1,7 @@
-from sys import argv, stderr
 from headers_collector import get_user_headers_paths
-from os.path import dirname, exists, isfile, join
-from pathlib import Path
+from os.path import exists, join
+from project_directory_finder import find_project_dir
+from sys import argv, stderr
 
 
 class CPathsCollector:
@@ -35,27 +35,17 @@ def get_c_paths_to_compile(project_dir, c_path_relative_to_project_dir):
     return sorted(list(collector.collected_c_paths))
 
 
-def find_project_dir(c_program_path):
-    parents = map(lambda path: path.as_posix(), Path(c_program_path).parents)
-    project_root = next((path for path in parents if
-                         isfile(f'{path}/WORKSPACE')), None)
-    if not project_root:
-        raise (FileNotFoundError(
-            f'Can not locate project root directory for c_program_path={c_program_path}. Does the project root directory contain WORKSPACE file? Have you specified c_program_path relative to the directory invoking this script?'))
-    return project_root
-
-
 def main():
-    if len(argv) != 3:
+    if len(argv) != 2:
         stderr.write(
-            "Need arguments [project_dir] and [relative/path/to/c]\n")
+            "Need argument [c_program_path]\n")
         invalid_argument_to_exit_shell_error_code = 128
         exit(invalid_argument_to_exit_shell_error_code)
-    project_dir = argv[1]
-    c_program_path = argv[2]
-    c_paths = get_c_paths_to_compile(
-        project_dir, c_program_path)
-    print(' '.join(c_paths))
+    project_root_dir = find_project_dir(argv[1])
+    c_program_path_relative_to_root = argv[1].replace(project_root_dir, '')
+    c_paths = get_c_paths_to_compile(project_root_dir,
+                                     c_program_path_relative_to_root)
+    print(f'{c_program_path_relative_to_root} ' + ' '.join(c_paths))
 
 
 if __name__ == '__main__':
