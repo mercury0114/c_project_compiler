@@ -1,5 +1,5 @@
 from headers_collector import get_user_headers_paths
-from os.path import exists, join
+from os.path import exists, join, normpath
 from project_directory_finder import find_project_dir
 from sys import argv, stderr
 
@@ -41,10 +41,9 @@ def main():
             "Need argument [c_program_path]\n")
         invalid_argument_to_exit_shell_error_code = 128
         exit(invalid_argument_to_exit_shell_error_code)
-    project_root_dir = find_project_dir(argv[1])
-    c_program_path_relative_to_root = argv[1].replace(project_root_dir, '')
-    stderr.write(project_root_dir + '\n')
-    stderr.write(c_program_path_relative_to_root + '\n')
+    norm_arg = normpath(argv[1])
+    project_root_dir = find_project_dir(norm_arg)
+    c_program_path_relative_to_root = norm_arg.replace(project_root_dir, '')
     c_paths = get_c_paths_to_compile(project_root_dir,
                                      c_program_path_relative_to_root)
     print(f'{c_program_path_relative_to_root} ' + ' '.join(c_paths))

@@ -1,4 +1,4 @@
-from os.path import isfile
+from os.path import isfile, normpath
 from pathlib import Path
 from sys import argv, stderr
 
@@ -19,7 +19,7 @@ def main():
             "Need argument [c_program_path]\n")
         invalid_argument_to_exit_shell_error_code = 128
         exit(invalid_argument_to_exit_shell_error_code)
-    print(find_project_dir(argv[1]))
+    print(find_project_dir(normpath(argv[1])))
 
 
 if __name__ == '__main__':
