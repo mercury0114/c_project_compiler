@@ -43,6 +43,8 @@ def main():
         exit(invalid_argument_to_exit_shell_error_code)
     project_root_dir = find_project_dir(argv[1])
     c_program_path_relative_to_root = argv[1].replace(project_root_dir, '')
+    stderr.write(project_root_dir + '\n')
+    stderr.write(c_program_path_relative_to_root + '\n')
     c_paths = get_c_paths_to_compile(project_root_dir,
                                      c_program_path_relative_to_root)
     print(f'{c_program_path_relative_to_root} ' + ' '.join(c_paths))
