@@ -1,4 +1,4 @@
-from sys import argv
+from sys import argv, stderr
 from headers_collector import get_user_headers_paths
 from os.path import exists, join
 
@@ -31,9 +31,9 @@ def get_c_paths_to_compile(project_dir, c_program_path):
 
 def main():
     if len(argv) != 3:
-        print("Usage:")
-        print("python3 c_paths_collector.py project_dir relative/path/to/c")
-        exit(1)
+        stderr.write("Need arguments [project_dir] and [relative/path/to/c]\n")
+        invalid_argument_to_exit_shell_error_code = 128
+        exit(invalid_argument_to_exit_shell_error_code)
     project_dir = argv[1]
     c_program_path = argv[2]
     c_paths = get_c_paths_to_compile(project_dir, c_program_path)
