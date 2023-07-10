@@ -13,6 +13,10 @@ to build and run `main.c`, and then will run the following command (approximatel
 
 ```gcc main.c path/to/dependency1.c path/to/dependency2.c ...```
 
+This will be faster than just running a command to compile all files in the project ```gcc main.c *.c```.
+If the `main.c` doesn't depend on some translation unit, that translation unit will not be included
+into the compilation process.
+
 ## Required Structure
 
 Project directory should have the following structure:
@@ -42,5 +46,14 @@ Every file in this project should include other files as follows:
 ```
 #include <stdio.h> // for standard system includes
 #include "library/function.h" // to include project specific files
+```
+
+## Example
+
+See `tests/data/project5` for an example project structure that this tool can manage:
+
+```
+// This should print some text to the console
+run_c tests/data/project5/dir/main.c
 ```
 
