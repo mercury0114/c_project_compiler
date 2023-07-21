@@ -8,8 +8,8 @@ alias run_c=/path/to/c_project_compiler/run_program_c.sh // to create a convenie
 run_c main.c
 ```
 
-**If** your project is built according to the required structure below, the tool will find all dependencies required
-to build and run `main.c`, and then will run the following command (approximatelly) to aseemble the binary:
+**If** your project is built according to the recommended structure below, the tool will find all dependencies
+required to build and run `main.c`, and then will run the following command (approximatelly) to aseemble the binary:
 
 ```gcc main.c path/to/dependency1.c path/to/dependency2.c ...```
 
