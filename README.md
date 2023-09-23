@@ -1,21 +1,38 @@
 # c_project_compiler
 
 This is a simple tool which allows you to build **small** C projects without requiring to have BUILD/Makefile files.
-To compile your binary `main.c`, download this project and then:
 
-```
-alias run_c=/path/to/c_project_compiler/run_program_c.sh // to create a convenient shorthand
-run_c main.c
-```
+To use to tool for running your binary `main.c`:
 
-**If** your project is built according to the recommended structure below, the tool will find all dependencies
-required to build and run `main.c`, and then will run the following command (approximatelly) to aseemble the binary:
+1) Download the project
+
+2) Create a convenient alias for the `run_program_c.sh` script located in the directory where you downloaded the project:
+
+    ```
+    alias run_c=/path/to/c_project_compiler/run_program_c.sh
+    ```
+
+    (Note: you can save an alias for permanent use in the `~/.bashrc` file)
+
+3) Run the program specifying a **relative** path from the current directory to the `main.c` file:
+
+    ```
+    // If you are in the same directory where main.c is:
+    run_c main.c
+
+    // If you are in a different directory than where main.c is:
+    run_c relative/path/to/main.c
+
+    // Note that backward paths are also supported, for example:
+    run_c ../../main.c
+    ```
+
+**If** your project is built according to the required structure below, the tool will find all dependencies
+to build and run `main.c`, and then will run the following command (approximatelly) to assemble the binary:
 
 ```gcc main.c path/to/dependency1.c path/to/dependency2.c ...```
 
-This will be faster than just running a command to compile all files in the project ```gcc main.c *.c```.
-If the `main.c` doesn't depend on some translation unit, that translation unit will not be included
-into the compilation process.
+The tool will not compile project files that `main.c` doesn't depend on. Thus, the tool will compile binary faster than simply including all project files into the compilation process (i.e. faster than running ```gcc main.c *.c```).
 
 ## Required Structure
 
