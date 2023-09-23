@@ -48,12 +48,10 @@ Project directory should have the following structure:
                 
 ```
 
-`WORKSPACE` is a text file (could be empty) which marks that the project root is in this directory. It's required for the tool to figure
-out the project root from any directory.
+`WORKSPACE` is a text file (could be empty) which marks that the project root is in this directory. The tool requires `WORKSPACE` file to figure out the project root directory from any directory.
 
 Library code needs to be in some subdirectory, such as `library/` subdirectory. We require this because
-`#include "function.h"` is ambiguous - should gcc include `function.h` from the root directory, or from the subdirectory we're currently at?
-`#include "library/function.h"` resolves the ambiguity.
+`#include "function.h"` is ambiguous - should gcc include `function.h` from the root directory, or from the subdirectory we're currently at? `#include "library/function.h"` resolves the ambiguity.
 
 `main.c` is the binary we want to run, containing the `int main(...)` function. The binary file can be anywhere, including the root directory.
 You can also create the `your_test.c` file and place it anywhere, the **c_project_compiler** will compile it.
