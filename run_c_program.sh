@@ -1,4 +1,8 @@
 set -e
+if [ -z $1 ]; then
+  echo "Please enter relative path (from the current dir) to your_program.c"
+  exit 1
+fi
 dr=$(dirname "$0")
 c_program_path=$PWD/$1
 project_root_dir=$(python3 -B $dr/project_directory_finder.py $c_program_path)
