@@ -2,7 +2,7 @@
 
 This is a simple tool which allows you to build **small** C projects without requiring to have BUILD/Makefile files.
 
-To use to tool for running your binary `main.c`:
+To use the tool for running your binary `main.c`:
 
 1) Download the project
 
@@ -50,11 +50,13 @@ Project directory should have the following structure:
 
 `WORKSPACE` is a text file (could be empty) which marks that the project root is in this directory. The tool requires `WORKSPACE` file to figure out the project root directory from any directory.
 
-Library code needs to be in some subdirectory, such as `library/` subdirectory. We require this because
-`#include "function.h"` is ambiguous - should gcc include `function.h` from the root directory, or from the subdirectory we're currently at? `#include "library/function.h"` resolves the ambiguity.
+Library code needs to be in some subdirectory, such as `library/` subdirectory. Otherwise it is not clear whether `#include "function.h"` refers to the file in the root directory, or the
+subdirectory we're currently at. `#include "library/function.h"` resolves the ambiguity.
+
+For every library implementation file `function.c` there must be a header file `function.h` with the same name in the same directory, otherwise the tool will not find the implementation file.
 
 `main.c` is the binary we want to run, containing the `int main(...)` function. The binary file can be anywhere, including the root directory.
-You can also create the `your_test.c` file and place it anywhere, the **c_project_compiler** will compile it.
+You can also create `your_test.c` file and place it anywhere, the **c_project_compiler** will compile it.
 
 Every file in this project should include other files as follows:
 
@@ -68,7 +70,7 @@ Every file in this project should include other files as follows:
 See `tests/data/project5` for an example project structure that this tool can manage:
 
 ```
-// This should print some text to the console
+// Successful run should print some text to the console
 run_c tests/data/project5/dir/main.c
 ```
 
