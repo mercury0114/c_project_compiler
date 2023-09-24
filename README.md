@@ -1,6 +1,6 @@
 # c_project_compiler
 
-The project provides a tool to compile and run **small** C projects without creating BUILD/Makefile files.
+`c_project_compiler` is a tool to compile and run **small** C projects without creating BUILD/Makefile files.
 
 To use the tool for running your binary `main.c`:
 
