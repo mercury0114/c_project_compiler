@@ -27,12 +27,16 @@ To use the tool for running your binary `main.c`:
     run_c ../../main.c
     ```
 
-**If** your project is built according to the required structure below, the tool will find all dependencies
-to build and run `main.c`, and then will run the following command (approximatelly) to assemble the binary:
+**IF** your project is built according to the required structure below, the tool will:
 
-```gcc main.c path/to/dependency1.c path/to/dependency2.c ...```
+1. Find all dependencies to compile `main.c`.
+2. Run the following command (approximatelly) to compile `main.c` into a binary:
+```
+gcc main.c path/to/dependency1.c path/to/dependency2.c ...
+```
+3. Run the compiled binary
 
-The tool will not compile project files that `main.c` doesn't depend on. Thus, the tool will compile binary faster than simply including all project files into the compilation process (i.e. faster than running ```gcc main.c *.c```).
+The tool will not compile project files that `main.c` doesn't depend on. Thus, the tool will compile the binary faster than simply including all project files into the compilation process (i.e. faster than running ```gcc main.c *.c```).
 
 ## Required Structure
 
