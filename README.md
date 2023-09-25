@@ -30,7 +30,7 @@ To use the tool for running your binary `main.c`:
 **IF** your project is built according to the required structure below, the tool will:
 
 1. Find all dependencies to compile `main.c`.
-2. Run the following command (approximatelly) to compile `main.c` into a binary:
+2. Compile `main.c` into a binary by running the command similar to:
 ```
 gcc main.c path/to/dependency1.c path/to/dependency2.c ...
 ```
