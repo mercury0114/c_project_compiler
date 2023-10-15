@@ -3,7 +3,7 @@ if [ -z $1 ]; then
   echo "Please enter relative path (from the current dir) to your_binary.c"
   exit 1
 fi
-c_binary_full_path=$PWD/$1
+c_binary_full_path=$(realpath $1)
 
 this_shell_script_full_path=$0
 compiler_dir=$(dirname "$this_shell_script_full_path")
